@@ -7,12 +7,16 @@ import GoalInput from "./components/GoalInput";
 export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
   const [isActiveMode, setIsActiveMode] = useState(false);
+  console.log("App -> isActiveMode", isActiveMode)
 
   const addGoalHandler = (goalTitle) => {
-    setCourseGoals((currentGoals) => [
-      ...currentGoals,
-      { id: Math.random().toString(), value: goalTitle },
-    ]);
+    if (goalTitle.length === 0) {
+      return
+    }
+      setCourseGoals((currentGoals) => [
+        ...currentGoals,
+        { id: Math.random().toString(), value: goalTitle },
+      ]);
 
     setIsActiveMode(false);
   }
@@ -37,7 +41,7 @@ export default function App() {
       />
       <FlatList
         data={courseGoals}
-        keyExtractor={(item, index) => item.uid}
+        keyExtractor={(item, index) => item.id}
         renderItem={(itemData) => (
           <GoaIItem
             onDelete={removeGoalHandler}
